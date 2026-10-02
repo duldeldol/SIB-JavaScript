@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 2 - Javascript: Data Gaji Pegawai</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #faf6f6;
+            color: #2b2b2b;
+            padding: 30px 15px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1050px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+
+        header h1 {
+            font-size: 26px;
+            color: #6b0017;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .header-line {
+            width: 70px;
+            height: 3px;
+            background: linear-gradient(90deg, #800020, #d4af37);
+            margin: 0 auto 10px auto;
+            border-radius: 2px;
+        }
+
+        header p {
+            color: #71585c;
+            font-size: 14px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 16px rgba(107, 0, 23, 0.08);
+            border-top: 4px solid #800020;
+            border-bottom: 3px solid #d4af37;
+        }
+
+        .table-wrap {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #640013, #870c27);
+            color: #ffffff;
+        }
+
+        thead th {
+            padding: 12px 8px;
+            font-weight: 600;
+            font-size: 12.5px;
+            letter-spacing: 0.3px;
+            text-align: center;
+            border: 1px solid #991b34;
+            border-bottom: 3px solid #d4af37;
+            line-height: 1.35;
+        }
+
+        tbody tr {
+            background-color: #ffffff;
+            transition: background-color 0.2s ease;
+        }
+
+        tbody tr:hover {
+            background-color: #fdf5f6;
+        }
+
+        tbody td {
+            padding: 11px 8px;
+            border: 1px solid #ebd9dc;
+            color: #382c2e;
+            vertical-align: middle;
+            font-size: 13px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .text-right {
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-jabatan {
+            background-color: #fce7eb;
+            color: #800020;
+            border: 1px solid #f7b8c4;
+        }
+
+        .badge-status {
+            background-color: #fef9c3;
+            color: #854d0e;
+            border: 1px solid #fde047;
+        }
+
+        tfoot {
+            background: linear-gradient(90deg, #fdf8e6, #fef3c7);
+            border-top: 2px solid #d4af37;
+        }
+
+        tfoot th {
+            padding: 13px 12px;
+            border: 1px solid #e8d7a7;
+        }
+
+        tfoot .total-label {
+            text-align: right;
+            font-weight: 700;
+            color: #640013;
+            font-size: 13.5px;
+            letter-spacing: 0.4px;
+        }
+
+        tfoot .total-value {
+            text-align: right;
+            font-weight: 800;
+            color: #7a0019;
+            font-size: 15px;
+            white-space: nowrap;
+            background-color: #fde68a;
+            border-left: 2px solid #d4af37;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 16px 10px;
+            }
+
+            header {
+                margin-bottom: 16px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            header p {
+                font-size: 12.5px;
+            }
+
+            .card {
+                padding: 12px;
+                border-radius: 10px;
+            }
+
+            table, thead, tbody, tfoot, tr, th, td {
+                display: block;
+                width: 100%;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody tr {
+                background-color: #ffffff;
+                border: 1px solid #ebd9dc;
+                border-radius: 8px;
+                overflow: hidden;
+                margin-bottom: 12px;
+                box-shadow: 0 2px 6px rgba(107, 0, 23, 0.04);
+            }
+
+            tbody td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 12px;
+                border: none;
+                border-bottom: 1px solid #f5eaec;
+                font-size: 13px;
+                text-align: right;
+            }
+
+            tbody td:last-child {
+                border-bottom: none;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #640013;
+                font-size: 12.5px;
+                text-align: left;
+                padding-right: 14px;
+                flex-shrink: 0;
+            }
+
+            .text-center, .text-right {
+                text-align: right;
+            }
+
+            tfoot {
+                display: block;
+                border-radius: 8px;
+                overflow: hidden;
+                border: 1px solid #d4af37;
+                background: linear-gradient(90deg, #fdf8e6, #fef3c7);
+                margin-top: 10px;
+                box-shadow: 0 2px 6px rgba(212, 175, 55, 0.15);
+            }
+
+            tfoot tr {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 12px 14px;
+                border: none;
+            }
+
+            tfoot th {
+                display: block;
+                border: none !important;
+                padding: 0 !important;
+                background: transparent !important;
+            }
+
+            tfoot .total-label {
+                font-size: 14px;
+                text-align: left;
+                color: #640013;
+            }
+
+            tfoot .total-value {
+                font-size: 16px;
+                font-weight: 800;
+                color: #7a0019;
+                text-align: right;
+                border-left: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Tugas 2 - Javascript</h1>
+            <div class="header-line"></div>
+            <p>Pengelolaan Data dan Perhitungan Gaji Pegawai</p>
+        </header>
+
+        <div class="card">
+            <div class="table-wrap">
+                <table>
+                    <!-- JUDUL KOLOM (THEAD) -->
+                    <thead>
+                        <tr>
+                            <th style="width: 35px;">No</th>
+                            <th>Nama Pegawai</th>
+                            <th style="width: 70px;">Umur</th>
+                            <th style="width: 95px;">Jabatan</th>
+                            <th style="width: 90px;">Status</th>
+                            <th>Gaji Pokok</th>
+                            <th>Tunjangan Jabatan (15%)</th>
+                            <th>BPJS (10%)</th>
+                            <th>Tunjangan Keluarga (20%)</th>
+                        </tr>
+                    </thead>
+
+                    <!-- ISI DATA-DATA (TBODY) -->
+                    <tbody id="data-pegawai">
+                        <!-- Data akan diisi menggunakan Javascript -->
+                    </tbody>
+
+                    <!-- TOTAL GAJI (TFOOT) -->
+                    <tfoot id="total-gaji">
+                        <!-- Total gaji akan diisi menggunakan Javascript -->
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. DATA YANG DIKETAHUI
+        let namaPegawai = "dodi prayodi";
+        let umur = 25;
+        let jabatan = "manajer";
+        let status = "menikah";
+
+        // 2. PERHITUNGAN GAJI POKOK (MENGGUNAKAN IF)
+        // Manajer => 15 jt, Asisten Manajer => 10 jt, Staff => 5 jt
+        let gajiPokok = 0;
+        let jabatanLower = jabatan.toLowerCase();
+
+        if (jabatanLower === "manajer") {
+            gajiPokok = 15000000;
+        } else if (jabatanLower === "asisten manajer") {
+            gajiPokok = 10000000;
+        } else if (jabatanLower === "staff") {
+            gajiPokok = 5000000;
+        } else {
+            gajiPokok = 0;
+        }
+
+        // 3. TUNJANGAN JABATAN (15% dari gapok)
+        let tunjanganJabatan = 0.15 * gajiPokok;
+
+        // 4. BPJS (10% dari gapok)
+        let bpjs = 0.10 * gajiPokok;
+
+        // 5. TUNJANGAN KELUARGA (MENGGUNAKAN TERNARY)
+        // Dilihat dari status yang sudah menikah => 20% dari gapok
+        let statusLower = status.toLowerCase();
+        let tunjanganKeluarga = (statusLower === "menikah") ? (0.20 * gajiPokok) : 0;
+
+        // 6. TOTAL GAJI (JUMLAHKAN SELURUH ELEMEN GAJI)
+        let totalGaji = gajiPokok + tunjanganJabatan + bpjs + tunjanganKeluarga;
+
+        // FUNGSI FORMAT RUPIAH
+        function formatRupiah(angka) {
+            return "Rp " + angka.toLocaleString("id-ID");
+        }
+
+        // Format nama agar huruf awal kapital
+        function formatKapital(str) {
+            return str.replace(/\b\w/g, function(huruf) {
+                return huruf.toUpperCase();
+            });
+        }
+
+        // LOG CONSOLE (Untuk Kemudahan Verifikasi)
+        console.log("=== DATA PEGAWAI & GAJI ===");
+        console.log("Nama Pegawai      : " + formatKapital(namaPegawai));
+        console.log("Umur              : " + umur + " tahun");
+        console.log("Jabatan           : " + formatKapital(jabatan));
+        console.log("Status            : " + formatKapital(status));
+        console.log("Gaji Pokok        : " + formatRupiah(gajiPokok));
+        console.log("Tunjangan Jabatan : " + formatRupiah(tunjanganJabatan));
+        console.log("BPJS              : " + formatRupiah(bpjs));
+        console.log("Tunjangan Keluarga: " + formatRupiah(tunjanganKeluarga));
+        console.log("-----------------------------------------");
+        console.log("Total Gaji        : " + formatRupiah(totalGaji));
+
+        // 7. CETAK KE DALAM TABEL HTML
+        // Setiap td dilengkapi atribut data-label agar responsif di HP
+        let tbodyEl = document.getElementById("data-pegawai");
+        tbodyEl.innerHTML = `
+            <tr>
+                <td class="text-center" data-label="No">1</td>
+                <td data-label="Nama Pegawai"><strong>${formatKapital(namaPegawai)}</strong></td>
+                <td class="text-center" data-label="Umur">${umur} Tahun</td>
+                <td class="text-center" data-label="Jabatan"><span class="badge badge-jabatan">${formatKapital(jabatan)}</span></td>
+                <td class="text-center" data-label="Status"><span class="badge badge-status">${formatKapital(status)}</span></td>
+                <td class="text-right" data-label="Gaji Pokok">${formatRupiah(gajiPokok)}</td>
+                <td class="text-right" data-label="Tunjangan Jabatan (15%)">${formatRupiah(tunjanganJabatan)}</td>
+                <td class="text-right" data-label="BPJS (10%)">${formatRupiah(bpjs)}</td>
+                    <td class="text-right" data-label="Tunjangan Keluarga (20%)">${formatRupiah(tunjanganKeluarga)}</td>
+            </tr>
+        `;
+
+        // Mengisi tfoot
+        let tfootEl = document.getElementById("total-gaji");
+        tfootEl.innerHTML = `
+            <tr>
+                <th colspan="8" class="total-label">Total Gaji :</th>
+                <th class="total-value">${formatRupiah(totalGaji)}</th>
+            </tr>
+        `;
+    </script>
+</body>
+</html>
