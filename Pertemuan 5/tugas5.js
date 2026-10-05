@@ -5,8 +5,8 @@ let produkList = [
     { id: 1, nama: "Laptop", harga: 12000000 },
     { id: 2, nama: "Smartphone", harga: 5000000 },
     { id: 3, nama: "Smartwatch", harga: 1500000 },
-    { id: 4, nama: "Headphone", harga: 800000 },
-    { id: 5, nama: "Keyboard Mechanical", harga: 1200000 }
+    { id: 4, nama: "Monitor", harga: 500000 },
+    { id: 5, nama: "Keyboard", harga: 1200000 }
     // minimal 5 data produk
 ];
 
@@ -99,6 +99,6 @@ tambahProduk(6, "Tablet", 7000000);
 tampilkanProduk();
 
 // 3. Contoh penghapusan data
-console.log("--- 3. MENGHAPUS PRODUK (ID: 2) ---");
-hapusProduk(2);
+console.log("--- 3. MENGHAPUS PRODUK (ID: 2 dan 5) ---");
+hapusProduk(2, 5);
 tampilkanProduk();
