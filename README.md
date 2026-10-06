@@ -39,5 +39,12 @@ Repositori ini berisi kumpulan tugas dan proyek latihan praktikum JavaScript pad
 
 ---
 
+### 📌 [Pertemuan 6](./Pertemuan%206/) - Manajemen Data Pengguna (JavaScript ES6 Modules)
+- **Deskripsi**: Implementasi konsep modularitas menggunakan JavaScript ES6 Modules (*import* dan *export*) untuk memisahkan logika penyimpanan data (*data store*) dan logika kontrol (*controller*).
+- **Materi**: *ES6 Modules* (`export default` & *named export/import*), *Array of Objects*, manipulasi array (`map` untuk menampilkan data, `push` untuk menambah data, dan `pop` untuk menghapus data), serta struktur arsitektur modular (`data.mjs`, `controller.mjs`, `main.mjs`).
+- **File**: `data.mjs`, `controller.mjs`, `main.mjs`, `Pertemuan 6.png`
+
+---
+
 ## 📄 Lisensi & Catatan
 Seluruh kode pada repositori ini dibuat untuk keperluan tugas akademik dan pembelajaran pada program Studi Independen Bersertifikat (SIB).
